@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& T) {
+        size_t const n = T.size();
+        stack<pair<size_t, int>> mds;
+        vector<int> ans(n);
+        for (size_t i = 0; i < n; ++i) {
+            while (!mds.empty() && T[i] > mds.top().second) {
+                ans[mds.top().first] = i - mds.top().first;
+                mds.pop();
+            }
+            mds.emplace(i, T[i]);
+        }
+        return ans;
+    }
+};
